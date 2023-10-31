@@ -30,8 +30,8 @@ jobs:
         yt-dlp --version
         curl -OJL https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
         tar -xf ffmpeg-master-latest-linux64-gpl.tar.xz
-        ls -lah
-        mv ffmpeg-master-latest-linux64-gpl ffmpeg
+        ls -lah ffmpeg-master-latest-linux64-gpl
+        mv ffmpeg-master-latest-linux64-gpl/ffmpeg .
         chmod +x ffmpeg
         ./ffmpeg --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
