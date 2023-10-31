@@ -17,15 +17,15 @@ on:
 jobs:
   convertVideo:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
     steps:
     - run: |
-        apt-get update &&         apt-get install -y youtube-dl
+        curl -L https://yt-dl.org/downloads/latest/youtube-dl -o ./youtube-dl &&
+        chmod a+rx ./youtube-dl
+        youtube-dl --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
-        youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }}
+        ./youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
-        curl -F "file=@*.mp3" https://tmpfiles.org/api/v1/upload
+        curl -F "file=@output.mp3" https://tmpfiles.org/api/v1/upload
   printInputs:
     runs-on: ubuntu-latest
     steps:
