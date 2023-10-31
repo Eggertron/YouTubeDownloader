@@ -19,12 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-      apt-get update &&
-      apt-get install -y youtube-dl
-      echo "downloading ${{ github.event.inputs.youtube_url }}"
-      youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }}
-      ls -lah
-      curl -F "file=@*.mp3" https://tmpfiles.org/api/v1/upload
+        apt-get update &&         apt-get install -y youtube-dl
+        echo "downloading ${{ github.event.inputs.youtube_url }}"
+        youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }}
+        ls -lah
+        curl -F "file=@*.mp3" https://tmpfiles.org/api/v1/upload
   printInputs:
     runs-on: ubuntu-latest
     steps:
