@@ -33,6 +33,7 @@ jobs:
         ls -lah ffmpeg-master-latest-linux64-gpl/bin
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
+        export PATH=${PWD}:$PATH
         echo "downloading ${{ github.event.inputs.youtube_url }}"
         yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
