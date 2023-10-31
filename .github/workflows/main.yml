@@ -19,9 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        curl -L https://yt-dl.org/downloads/latest/youtube-dl -o ./youtube-dl &&
-        ls -lah
-        chmod a+rx youtube-dl
+        python -m pip install --upgrade youtube-dl
+        ptthon -m pip list
         youtube-dl --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
         youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
