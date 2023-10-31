@@ -32,7 +32,8 @@ jobs:
         tar -xf ffmpeg-master-latest-linux64-gpl.tar.xz
         ls -lah
         mv ffmpeg-master-latest-linux64-gpl ffmpeg
-        ffmpeg --version
+        chmod +x ffmpeg
+        ./ffmpeg --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
         yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
