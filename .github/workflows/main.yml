@@ -18,7 +18,7 @@ jobs:
   convertVideo:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:24.04
+      image: ubuntu:latest
     steps:
     - run: |
         apt-get update &&         apt-get install -y youtube-dl
