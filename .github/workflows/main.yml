@@ -25,11 +25,11 @@ jobs:
         python -m virtualenv -p python mpthree
         ls -lah
         source mpthree/bin/activate
-        python -m pip install --upgrade youtube-dl
+        python -m pip install --upgrade yt-dlp
         python -m pip list
-        youtube-dl --version
+        yt-dlp --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
-        youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
+        yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
         curl -F "file=@output.mp3" https://tmpfiles.org/api/v1/upload
   printInputs:
