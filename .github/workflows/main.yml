@@ -28,6 +28,10 @@ jobs:
         python -m pip install --upgrade yt-dlp
         python -m pip list
         yt-dlp --version
+        curl https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o ffmpeg.tar.xz
+        tar xf ffmpeg.tar.xz
+        ls -lah
+        ffmpeg --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
         yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
