@@ -7,12 +7,6 @@ on:
       output_type:
         description: "mp3|mp4"
         default: "mp3"
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
 
 jobs:
   convertVideo:
@@ -37,6 +31,6 @@ jobs:
         ls -lah
         MP3FILE=$( ls | grep mp3 )
         echo "file name: $MP3FILE"
-        
-        curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload
+        echo "Download ready" >> $GITHUB_STEP_SUMMARY
+        curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
   
