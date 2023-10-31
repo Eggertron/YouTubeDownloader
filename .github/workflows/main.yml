@@ -26,7 +26,7 @@ jobs:
         ls -lah
         source mpthree/bin/activate
         python -m pip install --upgrade youtube-dl
-        ptthon -m pip list
+        python -m pip list
         youtube-dl --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
         youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
