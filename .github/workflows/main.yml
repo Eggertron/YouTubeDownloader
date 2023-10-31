@@ -19,6 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        python --version
+        python -m pip install --upgrade pip
+        python -m pip install virtualenv
+        python -m virtualenv -p python mpthree
+        ls -lah
+        source mpthree/bin/activate
         python -m pip install --upgrade youtube-dl
         ptthon -m pip list
         youtube-dl --version
