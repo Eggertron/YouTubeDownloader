@@ -20,10 +20,11 @@ jobs:
     steps:
     - run: |
         curl -L https://yt-dl.org/downloads/latest/youtube-dl -o ./youtube-dl &&
-        chmod a+rx ./youtube-dl
+        ls -lah
+        chmod a+rx youtube-dl
         youtube-dl --version
         echo "downloading ${{ github.event.inputs.youtube_url }}"
-        ./youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
+        youtube-dl --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }} -o output.mp3
         ls -lah
         curl -F "file=@output.mp3" https://tmpfiles.org/api/v1/upload
   printInputs:
