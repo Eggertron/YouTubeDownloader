@@ -29,6 +29,8 @@ jobs:
         python -m pip list
         yt-dlp --version
         curl https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o ffmpeg.tar.xz
+        ls -lah
+        cat ffmpeg.tar.xz
         tar -xf ffmpeg.tar.xz
         ls -lah
         ffmpeg --version
