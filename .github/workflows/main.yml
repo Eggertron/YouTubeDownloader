@@ -13,24 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        python --version
-        python -m pip install --upgrade pip
         python -m pip install virtualenv
         python -m virtualenv -p python mpthree
         source mpthree/bin/activate
         python -m pip install --upgrade yt-dlp
-        python -m pip list
         yt-dlp --version
         curl -OJL https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
         tar -xf ffmpeg-master-latest-linux64-gpl.tar.xz
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
         export PATH=${PWD}:$PATH
-        echo "downloading ${{ github.event.inputs.youtube_url }}"
         yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }}
         ls -lah
         MP3FILE=$( ls | grep mp3 )
         echo "file name: $MP3FILE"
         echo "Download ready" >> $GITHUB_STEP_SUMMARY
         curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
-  
