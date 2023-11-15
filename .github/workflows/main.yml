@@ -27,12 +27,12 @@ jobs:
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
         export PATH=${PWD}:$PATH
-        if [[ "${{ github.event.inputs.youtube_url }}" == "mp3" ]]
+        if [[ "${{ github.event.inputs.output_type }}" == "mp3" ]]
         then
           EXTRACT_OPT=--extract-audio
           FORMAT_OPT=--audio-format
           FORMAT_ARG=mp3
-        elif [[ "${{ github.event.inputs.youtube_url }}" == "mp4" ]]
+        elif [[ "${{ github.event.inputs.output_type }}" == "mp4" ]]
         then
           EXTRACT_OPT=
           FORMAT_OPT=--format
@@ -47,6 +47,8 @@ jobs:
         yt-dlp $EXTRACT_OPT $FORMAT_OPT $FORMAT_ARG ${{ github.event.inputs.youtube_url }}
         ls -lah
         OUTFILE=$( ls )
-        echo "file name: $OUTFILE"
+        FIXEDOUTFILE="${OUTFILE// /_}"
+        mv $OUTFILE $FIXEDOUTFILE
+        echo "file name: $FIXOUTFILE"
         echo "Download ready" >> $GITHUB_STEP_SUMMARY
-        curl -F "file=@${OUTFILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
+        curl -F "file=@${FIXOUTFILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
