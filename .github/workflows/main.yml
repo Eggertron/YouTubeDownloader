@@ -5,8 +5,11 @@ on:
         description: "YouTube video to convert"
         required: true
       output_type:
-        description: "mp3|mp4"
-        default: "mp3"
+        type: choice
+        description: video or audio
+        options:
+          - mp3
+          - mp4
 
 jobs:
   convertVideo:
@@ -23,9 +26,19 @@ jobs:
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
         export PATH=${PWD}:$PATH
-        yt-dlp --extract-audio --audio-format mp3 ${{ github.event.inputs.youtube_url }}
+        if [[ "${{ github.event.inputs.youtube_url }}" == "mp3" ]]
+        then
+          EXTRACT_OPT=--extract-audio
+          FORMAT_OPT=--audio-format
+          FORMAT_ARG=mp3
+        else
+          EXTRACT_OPT=
+          FORMAT_OPT=
+          FORMAT_ARG=
+        fi
+        yt-dlp $EXTRACT_OPT $FORMAT_OPT $FORMAT_ARG ${{ github.event.inputs.youtube_url }}
         ls -lah
-        MP3FILE=$( ls | grep mp3 )
-        echo "file name: $MP3FILE"
-        echo "Download ready" >> $GITHUB_STEP_SUMMARY
-        curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
+        #MP3FILE=$( ls | grep $FORMAT_ARG )
+        #echo "file name: $MP3FILE"
+        #echo "Download ready" >> $GITHUB_STEP_SUMMARY
+        #curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
