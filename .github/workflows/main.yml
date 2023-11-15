@@ -47,8 +47,8 @@ jobs:
         yt-dlp $EXTRACT_OPT $FORMAT_OPT $FORMAT_ARG ${{ github.event.inputs.youtube_url }}
         ls -lah
         OUTFILE=$( ls )
-        FIXEDOUTFILE="${OUTFILE// /_}"
-        mv \"$OUTFILE\" $FIXEDOUTFILE
+        FIXEDOUTFILE=${OUTFILE// /_}
+        mv "$OUTFILE" $FIXEDOUTFILE
         echo "file name: $FIXOUTFILE"
         echo "Download ready" >> $GITHUB_STEP_SUMMARY
         curl -F "file=@${FIXOUTFILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
