@@ -24,12 +24,12 @@ jobs:
         yt-dlp --version
         curl -OLJ https://github.com/jqlang/jq/releases/download/jq-1.7/jq-linux64
         chmod -x jq-linux64
-        jq-linux64 --version
         curl -OJL https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
         tar -xf ffmpeg-master-latest-linux64-gpl.tar.xz
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
         export PATH=${PWD}:$PATH
+        jq-linux64 --version
         if [[ "${{ github.event.inputs.output_type }}" == "mp3" ]]
         then
           EXTRACT_OPT=--extract-audio
