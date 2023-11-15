@@ -10,6 +10,7 @@ on:
         options:
           - mp3
           - mp4
+          - default
 
 jobs:
   convertVideo:
@@ -31,14 +32,21 @@ jobs:
           EXTRACT_OPT=--extract-audio
           FORMAT_OPT=--audio-format
           FORMAT_ARG=mp3
+        elif [[ "${{ github.event.inputs.youtube_url }}" == "mp4" ]]
+        then
+          EXTRACT_OPT=
+          FORMAT_OPT=--format
+          FORMAT_ARG=mp4
         else
           EXTRACT_OPT=
           FORMAT_OPT=
           FORMAT_ARG=
         fi
+        mkdir workspace
+        cd workspace
         yt-dlp $EXTRACT_OPT $FORMAT_OPT $FORMAT_ARG ${{ github.event.inputs.youtube_url }}
         ls -lah
-        #MP3FILE=$( ls | grep $FORMAT_ARG )
-        #echo "file name: $MP3FILE"
-        #echo "Download ready" >> $GITHUB_STEP_SUMMARY
-        #curl -F "file=@${MP3FILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
+        OUTFILE=$( ls )
+        echo "file name: $OUTFILE"
+        echo "Download ready" >> $GITHUB_STEP_SUMMARY
+        curl -F "file=@${OUTFILE}" https://tmpfiles.org/api/v1/upload >> $GITHUB_STEP_SUMMARY
