@@ -49,12 +49,13 @@ jobs:
         mkdir workspace
         cd workspace
         uvx yt-dlp $EXTRACT_OPT $FORMAT_OPT $FORMAT_ARG ${{ github.event.inputs.youtube_url }}
-        #for f in *\ *; do mv "$f" "${f// /_}"; done
+        for f in *\ *; do mv "$f" "${f// /_}"; done
         OUTFILE=$( ls )
         echo "OUTFILE=$OUTFILE" >> "$GITHUB_OUTPUT"
+        mv "$OUTFILE" ../
     - name: Upload converted video artifact
       uses: actions/upload-artifact@v4
       with:
           name: converted-x265-video
-          path: "./workspace/${{ steps.download_step.outputs.OUTFILE }}"
+          path: "${{ steps.download_step.outputs.OUTFILE }}"
           retention-days: 1
