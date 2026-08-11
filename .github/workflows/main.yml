@@ -27,11 +27,11 @@ jobs:
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
         export PATH=${PWD}:$PATH
-        ffmpeg --version
+        ffmpeg -version
     - id: download_step
       name: Download video
       run: |
-        ffmpeg --version
+        ffmpeg -version
         if [[ "${{ github.event.inputs.output_type }}" == "mp3" ]]
         then
           EXTRACT_OPT=--extract-audio
