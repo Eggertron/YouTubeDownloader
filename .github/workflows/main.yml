@@ -56,5 +56,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: converted-x265-video
-          path: "${{ steps.download_step.outputs.OUTFILE }}"
+          path: "./workspace/${{ steps.download_step.outputs.OUTFILE }}"
           retention-days: 1
