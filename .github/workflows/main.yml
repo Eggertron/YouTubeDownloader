@@ -26,11 +26,10 @@ jobs:
         tar -xf ffmpeg-master-latest-linux64-gpl.tar.xz
         mv ffmpeg-master-latest-linux64-gpl/bin/ff* .
         chmod +x ffmpeg
-        export PATH=${PWD}:$PATH
-        ffmpeg -version
     - id: download_step
       name: Download video
       run: |
+        export PATH=${PWD}:$PATH
         ffmpeg -version
         if [[ "${{ github.event.inputs.output_type }}" == "mp3" ]]
         then
